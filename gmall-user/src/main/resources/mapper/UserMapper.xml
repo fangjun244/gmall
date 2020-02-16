@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.atguigu.gmall.user.mapper.UserMapper">
+
+
+    <select id="selectAllUser" resultType="com.atguigu.gmall.user.bean.UmsMember">
+        select * from ums_member
+    </select>
+
+    <select id="selectUserByPrimeryId" resultType="com.atguigu.gmall.user.bean.UmsMember" parameterType="int">
+        select * from ums_member u where u.id=#{id}
+    </select>
+
+<!--    修改用户信息-->
+    <update id="updateUSer" parameterType="com.atguigu.gmall.user.bean.UmsMember">
+
+        UPDATE
+            ums_member
+        set
+                <if test=" memberLevelId != '' and memberLevelId != null ">
+                    member_level_id = #{memberLevelId}
+                </if>
+                <if test=" username != '' and username != null ">
+                    ,username = #{username}
+                </if>
+                <if test=" password != '' and password != null ">
+                    ,password =#{password}
+                </if>
+                <if test=" nickname != '' and nickname != null ">
+                    ,nickname =#{nickname}
+                </if>
+                <if test=" phone != '' and phone != null ">
+                    ,phone = #{phone}
+                </if>
+                <if test=" status !='' and status != null ">
+                    ,status = #{status}
+                </if>
+                    ,create_time = #{createTime}
+                <if test=" icon != '' and icon != null ">
+                    ,icon =#{icon}
+                </if>
+                <if test=" gender != '' and gender != null">
+                    ,gender =#{gender}
+                </if>
+                    ,birthday = #{birthday}
+                <if test="city != null and city != ''">
+                    ,city =#{city}
+                </if>
+                <if test=" job !='' and job != null">
+                    ,job =#{job}
+                </if>
+                <if test="personalizedSignature !='' and personalizedSignature != null ">
+                    ,personalized_signature =#{personalizedSignature}
+                </if>
+                <if test=" sourceType != '' and  sourceType != null ">
+                    ,source_type =#{sourceType}
+                </if>
+                <if test=" integration != '' and integration != null ">
+                    ,integration =#{integration}
+                </if>
+                <if test="growth  != '' and growth != null ">
+                    ,growth =#{growth}
+                </if>
+                <if test="luckeyCount != '' and luckeyCount != null ">
+                    ,luckey_count =#{luckeyCount}
+                </if>
+                <if test=" historyIntegration != '' and historyIntegration != null ">
+                    ,history_integration =#{historyIntegration}
+                </if>
+            WHERE id = #{id}
+    </update>
+
+
+<!--   新增用户-->
+    <insert id="insertUSer" parameterType="com.atguigu.gmall.user.bean.UmsMember" useGeneratedKeys="true" keyProperty="id">
+            insert into
+                ums_member u
+                        (id,memberLevelId,username,password,nickname,phone,status,createTime,icon,gender,birthday,
+                            city,job,personalizedSignature,sourceType,integration,growth,luckeyCount,historyIntegration)
+            values (id,memberLevelId,username,password,nickname,phone,status,createTime,icon,gender,birthday,
+                            city,job,personalizedSignature,sourceType,integration,growth,luckeyCount,historyIntegration,)
+    </insert>
+
+</mapper>
